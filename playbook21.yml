@@ -1,0 +1,20 @@
+---
+- name: Install git on rhel and ubuntu servers
+  hosts: all
+  tasks:
+    - block:
+       - name: Install on ubuntu using apt
+         apt:
+           name: git
+           state: present
+           update_cache: yes
+      rescue:
+        - name: Install on rhel using yum
+          yum:
+            name: yum
+            state: present
+            update_cache: yes
+      always:
+        - name: Print success msg
+          debug:
+            msg: "Git installtion successful"
