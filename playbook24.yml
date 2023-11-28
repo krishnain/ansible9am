@@ -1,0 +1,7 @@
+---
+- name: Call child playbook
+  hosts: all
+  tasks:
+    - name: Copy file using child playbook
+      include_tasks: playbook23.yml
+...
