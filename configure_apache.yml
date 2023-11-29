@@ -1,0 +1,12 @@
+---
+- name: Call child playbooks for apache2
+  hosts: all
+  tasks:
+    - name: Call child playbooks
+      include_tasks: "{{item}}"
+      with_items:
+        - install.yml
+        - edit_index.yml
+        - restart.yml
+        - check_url_response.yml
+...

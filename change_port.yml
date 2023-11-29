@@ -1,0 +1,7 @@
+---
+- name: Change tomcat port frm 8080 to 9090
+  replace:
+    regexp: "{{h}}"
+    replace: "{{i}}"
+    path: "{{j}}"
+...

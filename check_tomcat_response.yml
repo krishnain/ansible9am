@@ -1,0 +1,8 @@
+---
+- name: Check tomcat on all servers
+  uri:
+    url: "{{item.a}}"
+    status_code: "{{item.b}}"
+  with_items:
+    - {a: "{{m}}",b: "{{n}}"}
+    - {a: "{{o}}",b: "{{n}}"}
