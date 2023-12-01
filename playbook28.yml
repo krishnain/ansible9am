@@ -1,0 +1,44 @@
+---
+- name: Configure apache2/httpd on all servers
+  hosts: all
+  tasks:
+    - name: Install apache2 on ubuntu servers
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+    - name: Install httpd on rhel servers
+      yum:
+        name: httpd
+        state: present
+        update_cache: yes
+      when: ansible_distribution == "RedHat"
+    - name: Edit the imdex.html file
+      copy:
+        content: "Welcome to IntelliQ"
+        dest: /var/www/html/index.html
+    - name: Restart apache2 on ubutnu servers
+      service:
+        name: apache2
+        state: restarted
+      when: ansible_distribution == "Ubuntu"
+    - name: Restart httpd on rhel servers
+      service:
+        name: httpd
+        state: restarted
+      when: ansible_distribution == "RedHat"
+    - name: Check apahe2/httpd response on all servers
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items:
+        - http://172.31.12.192
+        - http://172.31.13.139
+        - http://172.31.7.30
+
+
+
+
+
+
